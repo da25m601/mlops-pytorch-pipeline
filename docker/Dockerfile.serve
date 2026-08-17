@@ -3,7 +3,16 @@ FROM python:3.11-slim
 WORKDIR /app
 
 COPY requirements/serve.txt .
-RUN pip install --no-cache-dir -r serve.txt
+#RUN pip install --no-cache-dir -r serve.txt
+RUN pip install --no-cache-dir \
+    torch==2.10.0 \
+    torchvision==0.25.0 \
+    --index-url https://download.pytorch.org/whl/cpu
+
+RUN pip install --no-cache-dir \
+    fastapi==0.141.1 \
+    uvicorn==0.52.3 \
+    python-multipart==0.0.32
 
 COPY src/ ./src/
 
