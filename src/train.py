@@ -1,9 +1,11 @@
 import json
+import os
 from pathlib import Path
 
 import torch
 import torch.nn as nn
 import yaml
+
 
 from src.dataset import get_dataloaders
 from src.model import create_model
@@ -84,8 +86,10 @@ def evaluate(
 
 
 def main() -> None:
-    config_path = Path("configs/training_config.yaml")
-
+    # config_path = Path("configs/training_config.yaml")
+    config_path = Path(
+        os.environ.get("TRAINING_CONFIG", "configs/training_config.yaml")
+    )
     config = load_config(str(config_path))
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")

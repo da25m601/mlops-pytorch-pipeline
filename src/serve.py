@@ -1,4 +1,5 @@
 import io
+import os
 from pathlib import Path
 
 import torch
@@ -8,8 +9,10 @@ from PIL import Image
 from src.model import create_model
 
 
-CHECKPOINT_PATH = Path("checkpoints/classifier_v1.pt")
-
+# CHECKPOINT_PATH = Path("checkpoints/classifier_v1.pt")
+CHECKPOINT_PATH = Path(
+    os.environ.get("CHECKPOINT_PATH", "checkpoints/classifier_v1.pt")
+)
 app = FastAPI(title="MLOps PyTorch Classifier")
 
 model = None
